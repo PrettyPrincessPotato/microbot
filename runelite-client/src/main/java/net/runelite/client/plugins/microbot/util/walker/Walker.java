@@ -10,6 +10,7 @@ import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.plugins.microbot.Microbot;
 import net.runelite.client.plugins.microbot.staticwalker.pathfinder.*;
+import net.runelite.client.plugins.microbot.util.Global;
 import net.runelite.client.plugins.microbot.util.camera.Rs2Camera;
 import net.runelite.client.plugins.microbot.util.math.Calculations;
 import net.runelite.client.plugins.microbot.util.menu.NewMenuEntry;
@@ -255,6 +256,17 @@ public class Walker {
         sleepUntilOnClientThread(() -> pathfinder.isDone(), 60000);
 
         return pathfinder.getPath().get(pathfinder.getPath().size() - 1).position.equals(target);
+    }
+
+    public boolean canReach(WorldPoint target, int objectSize) {
+        WorldPoint start = Microbot.getClient().getLocalPlayer().getWorldLocation();
+
+        pathfinder = new Pathfinder(pathfinderConfig, start, target, true);
+        setupPathfinderDefaults();
+
+        sleepUntilOnClientThread(() -> pathfinder.isDone(), 60000);
+
+        return pathfinder.getPath().get(pathfinder.getPath().size() - 1).position.distanceTo2D(target) <= objectSize;
     }
 
     public long getReachDistance(WorldPoint target) {

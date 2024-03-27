@@ -42,6 +42,22 @@ public class Rs2GameObject {
         return clickObject(object);
     }
 
+    public static boolean interact(int id, boolean checkCanReach) {
+        TileObject object = findObjectById(id);
+        ObjectComposition objectComposition = Microbot.getClientThread().runOnClientThread(() -> Microbot.getClient().getObjectDefinition(id));
+        int objectSize = (objectComposition.getSizeX() + objectComposition.getSizeY()) / 2;
+        if (object == null) return false;
+        if (checkCanReach && Microbot.getWalker().canReach(object.getWorldLocation(), objectSize))
+            return clickObject(object);
+        if (Microbot.getClient().getLocalPlayer().getWorldLocation().distanceTo2D(object.getWorldLocation()) > 10) {
+            Microbot.getWalker().hybridWalkTo(object.getWorldLocation());
+        } else {
+            Microbot.getWalker().walkTo(object.getWorldLocation());
+        }
+        return false;
+    }
+
+
     public static boolean interact(int id, String action) {
         TileObject object = findObjectById(id);
         return clickObject(object, action);
