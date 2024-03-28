@@ -324,13 +324,10 @@ public class VorkathScript extends Script {
                             }
                         }
                         togglePrayer(false);
-<<<<<<< HEAD
                         boolean vorkathHead = Rs2GroundItem.loot("Vorkath's head", 20);
                         boolean itemsLeft = Rs2GroundItem.lootAllItemBasedOnValue(1500, 20) || Rs2GroundItem.exists("Vorkath's head", 20);
-=======
                         Rs2GroundItem.loot("Vorkath's head", 20);
                         Rs2GroundItem.lootAllItemBasedOnValue(config.priceOfItemsToLoot(), 20);
->>>>>>> 0e249aaf98e3af6687a8a68ed68444021858dacc
                         int foodInventorySize = Rs2Inventory.getInventoryFood().size();
                         boolean hasVenom = Rs2Inventory.hasItem("venom");
                         boolean hasSuperAntifire = Rs2Inventory.hasItem("super antifire");
@@ -338,7 +335,7 @@ public class VorkathScript extends Script {
                         boolean hasRangePotion = Rs2Inventory.hasItem(config.rangePotion().toString());
                         sleep(600, 2000);
                         if (!Rs2GroundItem.isItemBasedOnValueOnGround(config.priceOfItemsToLoot(), 20) && !Rs2GroundItem.exists("Vorkath's head", 20)) {
-                            if (foodInventorySize < 3 || !hasVenom || !hasSuperAntifire || !hasPrayerPotion || !hasRangePotion) {
+                            if (foodInventorySize < 6 || !hasVenom || !hasSuperAntifire || !hasPrayerPotion || !hasRangePotion) { // Changed to 6 due to preference (My bot isn't as good as yours :( )
                                 leaveVorkath();
                             } else {
                                 Microbot.getWalkerForKotlin().walkFastLocal(
